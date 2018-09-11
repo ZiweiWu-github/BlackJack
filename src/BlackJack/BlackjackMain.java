@@ -1,15 +1,20 @@
 package BlackJack;
 import static java.lang.System.out;
 
+
 public class BlackjackMain {
 	public static void main(String[] arg) {
-		Person p = new Person();
-		p.addCard(Card.FOUR);
-		p.addCard(Card.ACE);
-		p.addCard(Card.ACE);
-		p.addCard(Card.ACE);
-		
-		for(Integer i: p.countValues()) {
+		BlackjackGame game = new BlackjackGame();
+		game.startGame();
+		game.startGame();
+		out.println(game.getPlayer().getPlayerHandString());
+		//out.println(game.getDealer().getInitialDealerString());
+		for(int i: game.getPlayer().getBestScores()) {
+			out.println(i);
+		}
+		game.restart();
+		out.println(game.getPlayer().getPlayerHandString());
+		for(int i: game.getPlayer().getBestScores()) {
 			out.println(i);
 		}
 	}
