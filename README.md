@@ -1,13 +1,4 @@
 # BlackJack
-Personal Project for Blackjack card game
+Personal Project for Blackjack card game and blog
 
-Things done:
-- Score counting for hands
-- Implementation of player and dealer
-
-Working on:
-- Card splitting
-
-Todo:
-- GUI
-- Actual game
+You can find the blog at http://ziweiwuprojects.blogspot.com/2018/09/blackjack-blogs-page-of-contents.html
