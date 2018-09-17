@@ -5,6 +5,65 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+
+/*
+ * JButton to have the player start the game by drawing cards
+ */
+class GameStartButton extends JButton{
+	private static final long serialVersionUID = 1L;
+
+	public GameStartButton(BlackjackGame g) {
+		super("Start Game");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				g.startGame();
+			}
+		});
+	}
+}
+
+/*
+ * JButton to have the player accept the insurance bet and moves on to the
+ * insurance bet check
+ */
+class AcceptInsuranceButton extends JButton{
+	private static final long serialVersionUID = 1L;
+
+	public AcceptInsuranceButton(BlackjackGame g) {
+		super("<html>Accept<br>Insurance</html>");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				g.getPlayer().setDidInsuranceBet(true);
+				g.insuranceCheck();
+			}
+		});
+	}
+}
+
+/*
+ * JButton to have the player decline the insurance bet and moves on to the
+ * insurance bet check
+ */
+
+class DeclineInsuranceButton extends JButton{
+	private static final long serialVersionUID = 1L;
+
+	public DeclineInsuranceButton(BlackjackGame g) {
+		super("<html>Decline<br>Insurance</html>");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				g.insuranceCheck();
+			}
+		});
+	}
+}
+
+/*
+ * The four below buttons are for player actions
+ */
 class PlayerHitButton extends JButton{
 	private static final long serialVersionUID = 1L;
 
@@ -61,6 +120,74 @@ class PlayerSplitButton extends JButton{
 			public void actionPerformed(ActionEvent e) {
 				g.getPlayer().split();
 				g.updatePlayer();
+			}
+		});
+	}
+}
+
+/*
+ * JButton to have the dealer make the move
+ */
+class DealerMoveButton extends JButton{
+	private static final long serialVersionUID = 1L;
+	
+	public DealerMoveButton(BlackjackGame g) {
+		super("Dealer's Turn");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				g.dealerMakeMove();
+			}
+		});
+	}
+}
+
+/*
+ * JButton to move on to the score check
+ */
+class CheckScoreButton extends JButton{
+	private static final long serialVersionUID = 1L;
+	
+	public CheckScoreButton(BlackjackGame g) {
+		super("Score Check");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				g.scoreCount();
+			}
+		});
+	}
+}
+
+/*
+ * JButton for the player to surrender
+ */
+class SurrenderButton extends JButton{
+	private static final long serialVersionUID = 1L;
+	
+	public SurrenderButton(BlackjackGame g) {
+		super("Surrender");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				g.surrender();
+			}
+		});
+	}
+}
+
+/*
+ * JButton for the player to surrender
+ */
+class RestartButton extends JButton{
+	private static final long serialVersionUID = 1L;
+	
+	public RestartButton(BlackjackGame g) {
+		super("Restart Game");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				g.restart();
 			}
 		});
 	}

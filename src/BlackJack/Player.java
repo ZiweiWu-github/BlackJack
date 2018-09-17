@@ -6,9 +6,20 @@ public class Player {
 	
 	private ArrayList<Hand> hands = new ArrayList<Hand>();
 	private int currentHandNumber = 0;
+	private boolean didInsuranceBet = false;
+	private boolean wonInsuranceBet = false;
 	
 	public Player() {
 		hands.add(new Hand());
+	}
+	
+	/**
+	 * Changes a hand's win status
+	 * @param handNum: position of the arraylist
+	 * @param status: the HandStatus
+	 */
+	public void setWinStatusForHand(int handNum, HandStatus status) {
+		this.hands.get(handNum).setWinStatus(status);
 	}
 	
 	/**
@@ -21,6 +32,26 @@ public class Player {
 			this.hands.get(currentHandNumber).addCard(c);
 			if(!this.canHit()) this.stand();
 		}
+	}
+	
+	/*
+	 * The three methods below are to check the insurance bet for the player
+	 */
+	
+	public void setInsuranceWon(boolean b) {
+		this.wonInsuranceBet = b;
+	}
+	
+	public boolean getDidInsuranceWon() {
+		return this.wonInsuranceBet;
+	}
+	
+	public boolean getDidInsuranceBet() {
+		return this.didInsuranceBet;
+	}
+	
+	public void setDidInsuranceBet(boolean b) {
+		this.didInsuranceBet = b;
 	}
 	
 	/**
@@ -36,6 +67,14 @@ public class Player {
 			s += "\n";
 			s += "Cards: " + tempHand.getHandString() + "\n";
 			s += "Points: " + tempHand.valueString() + "\n\n";
+		}
+		if(this.didInsuranceBet) {
+			if(this.wonInsuranceBet) {
+				s+= "Insurance Bet Won";
+			}
+			else {
+				s+= "Insurance Bet Lost";
+			}
 		}
 		return s.trim();
 	}
@@ -97,7 +136,7 @@ public class Player {
 	public void split() {
 		Hand h = new Hand();
 		h.addCard(this.getCurrentHand().getCards().get(0));
-		this.getCurrentHand().getCards().remove(0);
+		this.getCurrentHand().removeCard(0);;
 		this.hands.add(h);
 	}
 	
@@ -117,6 +156,19 @@ public class Player {
 			}
 		}
 		return scores;
+	}
+	
+	/**
+	 * Returns an array of the hands' win status
+	 * @return
+	 */
+	public HandStatus[] getHandStates() {
+		HandStatus[] states = new HandStatus[this.hands.size()];
+		for(int i = 0; i<this.hands.size(); i++) {
+			Hand tempHand = this.hands.get(i);
+			states[i] = tempHand.getWinStatus();
+		}
+		return states;
 	}
 	
 }

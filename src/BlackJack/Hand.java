@@ -8,9 +8,24 @@ public class Hand {
 	private ArrayList<Card> hand = new ArrayList<Card>();
 	private TreeSet<Integer> values = new TreeSet<Integer>();
 	private boolean handChangedAfterCounting = false;
+	private HandStatus winStatus = HandStatus.LOSE;
 
 	public Hand() {
 		this.values.add(0); //the starting value is 0
+	}
+	
+	/*
+	 * The two methods below are for checking if the hand wins
+	 * against the dealer's hand or not. By default, the win status is
+	 * set to lose. This is so that the game only has to check for wins and ties.
+	 */
+	
+	public HandStatus getWinStatus() {
+		return this.winStatus;
+	}
+	
+	public void setWinStatus(HandStatus win) {
+		this.winStatus = win;
 	}
 	
 	/**
@@ -19,6 +34,11 @@ public class Hand {
 	 */
 	public void addCard(Card c) {
 		this.hand.add(c);
+		this.handChangedAfterCounting = true;
+	}
+	
+	public void removeCard(int value) {
+		this.hand.remove(value);
 		this.handChangedAfterCounting = true;
 	}
 	
@@ -90,4 +110,8 @@ public class Hand {
 			this.values = tempTreeSet;
 		}
 	}
+}
+
+enum HandStatus{
+	WIN, LOSE, TIE;
 }
