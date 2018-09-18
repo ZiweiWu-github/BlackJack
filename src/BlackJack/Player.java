@@ -17,7 +17,7 @@ public class Player {
 	 * Changes a hand's win status
 	 * @param handNum: position of the arraylist
 	 * @param status: the HandStatus
-	 */
+	 */ 
 	public void setWinStatusForHand(int handNum, HandStatus status) {
 		this.hands.get(handNum).setWinStatus(status);
 	}
