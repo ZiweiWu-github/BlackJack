@@ -1,4 +1,4 @@
-package BlackJack;
+package Blackjack;
 
 import java.util.ArrayList;
 import java.util.Random;

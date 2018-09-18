@@ -1,4 +1,4 @@
-package BlackJack;
+package Blackjack;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

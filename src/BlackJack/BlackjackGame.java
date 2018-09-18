@@ -1,10 +1,16 @@
-package BlackJack;
+package Blackjack;
 
 import java.util.ArrayList;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+/**
+ * This class contains all the objects of the 'model' for MVC
+ * and controls the flow of the game
+ * @author Ziwei Wu
+ *
+ */
 public class BlackjackGame {
 	private Player player;
 	private Dealer dealer;
@@ -168,6 +174,3 @@ public class BlackjackGame {
 	
 }
 
-enum GameState{
-	STARTING, INSURANCE, DEALERBLACKJACKWIN, PLAYING, DEALERTURN, SCORECOUNT, END, PLAYERSURRENDER
-}

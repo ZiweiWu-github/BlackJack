@@ -1,4 +1,4 @@
-package BlackJack;
+package Blackjack;
 
 import java.awt.GridLayout;
 
@@ -18,7 +18,6 @@ public class JPanelForButtons extends JPanel {
 		
 		//make button creator
 		this.buttonGet = new ButtonCreatorForJPanel(g);
-		this.refreshButtons();
 	}
 
 	/**

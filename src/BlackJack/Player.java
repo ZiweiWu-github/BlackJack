@@ -1,7 +1,13 @@
-package BlackJack;
+package Blackjack;
 
 import java.util.ArrayList;
 
+/**
+ * The Player class stores the current hand(s) and options the player
+ * can make.
+ * @author Ziwei Wu
+ *
+ */
 public class Player {
 	
 	private ArrayList<Hand> hands = new ArrayList<Hand>();
@@ -98,7 +104,7 @@ public class Player {
 	
 	//The player can double down only if it is the first turn
 	public boolean canDoubleDown() {
-		if(this.hasAdditionalHands())
+		if(this.hasAdditionalHands() && this.hands.size()==1)
 			return this.getCurrentHand().getCards().size() == 2;
 		else
 			return false;
