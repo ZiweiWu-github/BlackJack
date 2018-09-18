@@ -1,4 +1,4 @@
-package Blackjack;
+package BlackJack;
 
 import java.awt.GridLayout;
 
@@ -36,13 +36,4 @@ public class GameFrame extends JFrame {
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
-	
-	public void startGame() {
-		this.buttonPanel.refreshButtons();
-		this.textPanel.refreshText();
-	}
-}
-
-enum GameState{
-	STARTING, INSURANCE, DEALERBLACKJACKWIN, PLAYING, DEALERTURN, SCORECOUNT, END, PLAYERSURRENDER
 }

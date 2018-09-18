@@ -1,4 +1,4 @@
-package Blackjack;
+package BlackJack;
 
 import java.awt.GridLayout;
 
@@ -18,6 +18,7 @@ public class JPanelForGameText extends JPanel{
 		gameTextArea.setEditable(false);
 		this.setLayout(new GridLayout(1, 1));
 		this.add(gameTextArea);
+		this.refreshText();
 	}
 	
 	/*
@@ -71,8 +72,7 @@ public class JPanelForGameText extends JPanel{
 	}
 	
 	private void setDealerBJWinText() {
-		String t = "The dealer won by Blackjack!!!\n\n";
-		t += this.getScoreCountString();
+		String t = "The dealer won by Blackjack!!!";
 		this.gameTextArea.setText(t);
 	}
 	
@@ -107,6 +107,7 @@ public class JPanelForGameText extends JPanel{
 	
 	private void setSurrenderText() {
 		String t = "You have surrendered!\n\n";
+		t += this.getPlayingString();
 		this.gameTextArea.setText(t);
 	}
 	
