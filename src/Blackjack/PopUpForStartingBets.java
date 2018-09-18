@@ -1,4 +1,4 @@
-package Blackjack;
+package BlackJack;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;

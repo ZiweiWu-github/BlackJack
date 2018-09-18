@@ -1,4 +1,4 @@
-package Blackjack;
+package BlackJack;
 
 import java.io.Serializable;
 
