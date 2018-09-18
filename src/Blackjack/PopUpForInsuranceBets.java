@@ -1,4 +1,4 @@
-package BlackJack;
+package Blackjack;
 
 public class PopUpForInsuranceBets {
 

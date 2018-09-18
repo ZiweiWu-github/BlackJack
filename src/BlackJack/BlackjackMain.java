@@ -1,4 +1,4 @@
-package BlackJack;
+package Blackjack;
 
 /**
  * This is the main class used to instantiate the classes to run the game
