@@ -36,4 +36,9 @@ public class GameFrame extends JFrame {
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
+	
+	public void startGame() {
+		this.buttonPanel.refreshButtons();
+		this.textPanel.refreshText();
+	}
 }
