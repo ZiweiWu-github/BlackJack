@@ -5,6 +5,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+/*
+ * TODO: update buttons to influence PlayerInfo and popups for betting
+ */
+
 
 /*
  * JButton to have the player start the game by drawing cards

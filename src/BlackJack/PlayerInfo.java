@@ -2,7 +2,6 @@ package BlackJack;
 
 import java.io.Serializable;
 
-//TODO: Serialize and Deserialize this in the main class
 public class PlayerInfo implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int currentAmountOfMoney;

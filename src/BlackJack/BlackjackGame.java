@@ -16,9 +16,11 @@ public class BlackjackGame {
 	private Dealer dealer;
 	private Deck deck;
 	private GameState state;
+	private PlayerInfo playerInfo;
 	private ArrayList<ChangeListener> listeners = new ArrayList<ChangeListener>();
 	
-	public BlackjackGame() {
+	public BlackjackGame(PlayerInfo p) {
+		this.playerInfo = p;
 		this.restart();
 	}
 	
@@ -40,6 +42,10 @@ public class BlackjackGame {
 	
 	public GameState getGameState() {
 		return this.state;
+	}
+	
+	public PlayerInfo getPlayerInfo() {
+		return this.playerInfo;
 	}
 	
 	/*
