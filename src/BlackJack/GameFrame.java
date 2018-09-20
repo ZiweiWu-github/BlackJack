@@ -1,6 +1,8 @@
 package BlackJack;
 
 import java.awt.GridLayout;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.event.ChangeEvent;
@@ -35,6 +37,31 @@ public class GameFrame extends JFrame {
 		this.setSize(600, 400);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		this.addWindowListener(new WindowListener() {
+			@Override
+			public void windowOpened(WindowEvent e) {}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				BlackjackMain.systemExit();
+				//save the player's state when the window is closed
+			}
+			@Override
+			public void windowClosed(WindowEvent e) {}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {}
+		});
 	}
 	
 	public void startGame() {

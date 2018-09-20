@@ -9,9 +9,8 @@ import javax.swing.JButton;
  * TODO: update buttons to influence PlayerInfo and popups for betting
  */
 
-
 /*
- * JButton to have the player start the game by drawing cards
+ * JButton to have the player start the game by betting
  */
 class GameStartButton extends JButton{
 	private static final long serialVersionUID = 1L;
@@ -21,7 +20,9 @@ class GameStartButton extends JButton{
 		this.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				g.startGame();
+				@SuppressWarnings("unused")
+				PopUpForStartingBets p = new PopUpForStartingBets(g);
+				g.startingBet();
 			}
 		});
 	}
@@ -29,7 +30,7 @@ class GameStartButton extends JButton{
 
 /*
  * JButton to have the player accept the insurance bet and moves on to the
- * insurance bet check
+ * insurance bet popup
  */
 class AcceptInsuranceButton extends JButton{
 	private static final long serialVersionUID = 1L;
@@ -40,7 +41,9 @@ class AcceptInsuranceButton extends JButton{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				g.getPlayer().setDidInsuranceBet(true);
-				g.insuranceCheck();
+				@SuppressWarnings("unused")
+				PopUpForInsuranceBets p = new PopUpForInsuranceBets(g);
+				g.insuranceBet();
 			}
 		});
 	}

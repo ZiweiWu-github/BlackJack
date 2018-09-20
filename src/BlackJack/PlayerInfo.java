@@ -3,7 +3,7 @@ package BlackJack;
 import java.io.Serializable;
 
 public class PlayerInfo implements Serializable{
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2320367489106533425L;
 	private int currentAmountOfMoney;
 	private int currentBet;
 	private final int STARTING_AMOUNT_OF_MONEY = 10000;
@@ -24,8 +24,19 @@ public class PlayerInfo implements Serializable{
 	
 	public String getInfoString() {
 		String s = "Current Amount of Money: $" + this.currentAmountOfMoney;
-		s += "Current Bet: $" + this.currentBet;
+		s += "\nCurrent Bet per hand: $" + this.currentBet;
 		return s;
+	}
+	
+	/**
+	 * lose money for each hand
+	 * @param status
+	 */
+	public void Surrender(HandStatus[] status) {
+		for(int i = 0; i < status.length; i++) {
+			this.currentAmountOfMoney -= this.currentBet;
+		}
+		this.currentBet = 0;
 	}
 	
 	/**
@@ -35,6 +46,7 @@ public class PlayerInfo implements Serializable{
 	public void insuranceBetResult(boolean won) {
 		if(won) this.currentAmountOfMoney += (this.currentInsuranceBet * 2);
 		else this.currentAmountOfMoney -= this.currentInsuranceBet;
+		this.currentInsuranceBet = 0;
 	}
 	
 	/**
@@ -43,9 +55,8 @@ public class PlayerInfo implements Serializable{
 	 * In a tie, money is neither won nor lost
 	 * If the player loses, then s/he loses the bet amount
 	 * @param status: an array of HandStatuses 
-	 * @param bestScores: an array of the best points from the player's hand(s)
 	 */
-	public void startBetResult(HandStatus[] status, int[] bestScores) {
+	public void startBetResult(HandStatus[] status) {
 		for(int i = 0; i < status.length; i++) {
 			HandStatus h = status[i];
 			switch(h) {
@@ -55,19 +66,17 @@ public class PlayerInfo implements Serializable{
 			case TIE:
 				break;
 			case WIN:
-				int playerScore = bestScores[i];
-				if(playerScore == 21) {
-					this.currentAmountOfMoney += (this.currentBet * (3/2));
-				}
-				else {
-					this.currentAmountOfMoney += this.currentBet;
-				}
+				this.currentAmountOfMoney += this.currentBet;
+				break;
+			case BLACKJACK:
+				this.currentAmountOfMoney += (this.currentBet * (3/2));
 				break;
 			default:
 				break;
 			
 			}
 		}
+		this.currentBet = 0;
 	}
 	
 	

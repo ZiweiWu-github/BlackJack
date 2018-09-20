@@ -29,6 +29,7 @@ public class PopUpForInsuranceBets extends JFrame {
 		
 		this.setSize(300, 200);
 		this.setVisible(true);
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 	}
 	
 	
@@ -42,12 +43,19 @@ public class PopUpForInsuranceBets extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					try {
 						Integer money = Integer.parseInt(betPanel.getMoneyFieldString());
+						if(money < 0) {
+							throw new NegativeNumberException();
+						}
 						PlayerInfo pI = game.getPlayerInfo();
 						pI.makeInsuranceBet(money);
+						game.insuranceCheck();
 						popUp.dispose();
 					}
 					catch(NumberFormatException m) {
 						betPanel.setErrorText("<html><h2 style=\"color:red;\">Not a valid number!</p></html>");
+					}
+					catch(NegativeNumberException e1) {
+						betPanel.setErrorText("<html><h2 style=\"color:red;\">Cannot be a negative number!</p></html>");
 					}
 				}
 			});

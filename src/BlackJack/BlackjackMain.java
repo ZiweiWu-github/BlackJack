@@ -22,10 +22,10 @@ public class BlackjackMain {
 			FileInputStream input = new FileInputStream(saveFileName);
 			ObjectInputStream objectInput = new ObjectInputStream(input);
 			playerInfo = (PlayerInfo) objectInput.readObject();
-			objectInput.close();
 			BlackjackGame game = new BlackjackGame(playerInfo);
 			GameFrame frame = new GameFrame(game);
 			frame.startGame();
+			objectInput.close();
 		}
 		catch(FileNotFoundException e) {
 			//If the file is not there, then create a new playerInfo
@@ -37,16 +37,17 @@ public class BlackjackMain {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		finally {
-			try {
-				FileOutputStream outputStream = new FileOutputStream(saveFileName);
-				ObjectOutputStream output = new ObjectOutputStream(outputStream);
-				output.writeObject(playerInfo);
-				output.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 		
+	}
+	
+	public static void systemExit() {
+		try {
+			FileOutputStream outputStream = new FileOutputStream(saveFileName);
+			ObjectOutputStream output = new ObjectOutputStream(outputStream);
+			output.writeObject(playerInfo);
+			output.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

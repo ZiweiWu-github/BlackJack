@@ -113,5 +113,5 @@ public class Hand {
 }
 
 enum HandStatus{
-	WIN, LOSE, TIE;
+	WIN, LOSE, TIE, BLACKJACK;
 }

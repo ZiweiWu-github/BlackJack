@@ -51,6 +51,10 @@ public class JPanelForButtons extends JPanel {
 		else if(gameState == GameState.SCORECOUNT) {
 			this.add(this.buttonGet.checkScoreButton);
 		}
+		else if(gameState == GameState.MAKINGINSURANCEBET ||
+				gameState == GameState.MAKINGSTARTINGBET) {
+			//do nothing
+		}
 		else { //the gameState is END or DEALERBLACKJACKWIN or PLAYERSURRENDER
 			this.add(this.buttonGet.restartButton);
 		}

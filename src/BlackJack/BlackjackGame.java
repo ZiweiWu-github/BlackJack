@@ -73,13 +73,21 @@ public class BlackjackGame {
 	
 	/*
 	 * This method restarts the game and prompts the player to
-	 * press the button to press the button to actually start the game
+	 * press the button to actually start the game by making a bet
 	 */
 	public void restart(){
 		this.player = new Player();
 		this.dealer = new Dealer();
 		this.deck = new Deck();
 		this.state = GameState.STARTING;
+		this.notifyListeners();
+	}
+	
+	/*
+	 * This method sets the gamestate to starting
+	 */
+	public void startingBet() {
+		this.state = GameState.MAKINGSTARTINGBET;
 		this.notifyListeners();
 	}
 	
@@ -112,6 +120,15 @@ public class BlackjackGame {
 	 */
 	public void surrender() {
 		this.state= GameState.PLAYERSURRENDER;
+		this.playerInfo.Surrender(this.player.getHandStates());
+		this.notifyListeners();
+	}
+	
+	/*
+	 * This sets the gamestate to making insurance bet
+	 */
+	public void insuranceBet() {
+		this.state = GameState.MAKINGINSURANCEBET;
 		this.notifyListeners();
 	}
 	
@@ -122,10 +139,16 @@ public class BlackjackGame {
 	 */
 	public void insuranceCheck() {
 		if(this.dealer.hasBlackjack()) {
-			if(this.player.getDidInsuranceBet()) this.player.setInsuranceWon(true);
+			if(this.player.getDidInsuranceBet()) {
+				this.player.setInsuranceWon(true);
+				this.playerInfo.insuranceBetResult(true);
+			}
 			this.state = GameState.DEALERBLACKJACKWIN;
 		}
 		else {
+			if(this.player.getDidInsuranceBet()) {
+				this.playerInfo.insuranceBetResult(false);
+			}	
 			this.state = GameState.PLAYING;
 		}
 		this.notifyListeners();
@@ -168,18 +191,24 @@ public class BlackjackGame {
 				else if(currentHandScore == dealerScore) {
 					this.player.setWinStatusForHand(i, HandStatus.TIE);
 				}
+				else if(currentHandScore == 21) {
+					this.player.setWinStatusForHand(i, HandStatus.BLACKJACK);
+				}
 				else if(currentHandScore > dealerScore) {
 					this.player.setWinStatusForHand(i, HandStatus.WIN);
 				}
 			}
 		}
+		this.playerInfo.startBetResult(this.player.getHandStates());
 		
 		this.state = GameState.END;
 		this.notifyListeners();
+		System.out.println(this.playerInfo.getInfoString());
 	}
 	
 }
 
 enum GameState{ 
-	STARTING, INSURANCE, DEALERBLACKJACKWIN, PLAYING, DEALERTURN, SCORECOUNT, END, PLAYERSURRENDER
+	STARTING, INSURANCE, DEALERBLACKJACKWIN, PLAYING, DEALERTURN, SCORECOUNT, 
+	END, PLAYERSURRENDER, MAKINGSTARTINGBET, MAKINGINSURANCEBET
 }

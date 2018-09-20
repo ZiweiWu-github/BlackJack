@@ -50,6 +50,12 @@ public class JPanelForGameText extends JPanel{
 		case STARTING:
 			this.setStartText();
 			break;
+		case MAKINGINSURANCEBET:
+			this.setBetText();
+			break;
+		case MAKINGSTARTINGBET:
+			this.setBetText();
+			break;
 		default:
 			break;
 		}
@@ -60,8 +66,14 @@ public class JPanelForGameText extends JPanel{
 	 * for the game.
 	 */
 	
+	
 	private void setStartText() {
 		String t = "Press Start to start the game";
+		this.gameTextArea.setText(t);
+	}
+	
+	private void setBetText() {
+		String t = "Make the bet before continuing";
 		this.gameTextArea.setText(t);
 	}
 	
@@ -91,8 +103,12 @@ public class JPanelForGameText extends JPanel{
 			case WIN:
 				t += "Hand #" + (i+1) + " wins!\n\n";
 				break;
+			case BLACKJACK:
+				t += "Hand #" + (i+1) + " has a BLACKJACK!!!\n\n";
+				break;
 			default:
 				break;
+
 			
 			}
 		}
