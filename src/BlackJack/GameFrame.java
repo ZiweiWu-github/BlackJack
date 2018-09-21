@@ -5,6 +5,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -36,7 +37,7 @@ public class GameFrame extends JFrame {
 		
 		this.setSize(600, 400);
 		this.setVisible(true);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		
 		this.addWindowListener(new WindowListener() {
 			@Override
@@ -53,8 +54,12 @@ public class GameFrame extends JFrame {
 			
 			@Override
 			public void windowClosing(WindowEvent e) {
-				BlackjackMain.systemExit();
-				//save the player's state when the window is closed
+				int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?",
+						"Quitting?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if(result == JOptionPane.YES_OPTION) {
+					BlackjackMain.systemExit();
+					System.exit(0);
+				}
 			}
 			@Override
 			public void windowClosed(WindowEvent e) {}

@@ -36,7 +36,6 @@ public class PlayerInfo implements Serializable{
 		for(int i = 0; i < status.length; i++) {
 			this.currentAmountOfMoney -= this.currentBet;
 		}
-		this.currentBet = 0;
 	}
 	
 	/**
@@ -46,7 +45,6 @@ public class PlayerInfo implements Serializable{
 	public void insuranceBetResult(boolean won) {
 		if(won) this.currentAmountOfMoney += (this.currentInsuranceBet * 2);
 		else this.currentAmountOfMoney -= this.currentInsuranceBet;
-		this.currentInsuranceBet = 0;
 	}
 	
 	/**
@@ -69,14 +67,13 @@ public class PlayerInfo implements Serializable{
 				this.currentAmountOfMoney += this.currentBet;
 				break;
 			case BLACKJACK:
-				this.currentAmountOfMoney += (this.currentBet * (3/2));
+				this.currentAmountOfMoney += ((this.currentBet * 3) / 2);
 				break;
 			default:
 				break;
 			
 			}
 		}
-		this.currentBet = 0;
 	}
 	
 	

@@ -108,6 +108,7 @@ public class BlackjackGame {
 		}
 		else if(this.dealer.hasBlackjack()) {
 			this.state = GameState.DEALERBLACKJACKWIN;
+			this.playerInfo.Surrender(this.player.getHandStates());
 		}
 		else{
 			this.state = GameState.PLAYING;
@@ -139,6 +140,7 @@ public class BlackjackGame {
 	 */
 	public void insuranceCheck() {
 		if(this.dealer.hasBlackjack()) {
+			this.playerInfo.Surrender(this.player.getHandStates());
 			if(this.player.getDidInsuranceBet()) {
 				this.player.setInsuranceWon(true);
 				this.playerInfo.insuranceBetResult(true);
@@ -203,7 +205,6 @@ public class BlackjackGame {
 		
 		this.state = GameState.END;
 		this.notifyListeners();
-		System.out.println(this.playerInfo.getInfoString());
 	}
 	
 }

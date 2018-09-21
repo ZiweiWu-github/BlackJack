@@ -1,17 +1,22 @@
 package BlackJack;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * This class is used for popups for the starting bet
  * @author Ziwei Wu
  *
  */
+
 public class PopUpForStartingBets extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JPanelForBets betPanel;
@@ -24,11 +29,28 @@ public class PopUpForStartingBets extends JFrame{
 		this.betPanel = new JPanelForBets();
 		this.button = new JButtonForStartingBets(this);
 		
-		this.setLayout(new GridLayout(1, 2));
-		this.add(this.betPanel);
-		this.add(this.button);
+		this.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1.0;
+		c.weighty = 1.0;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.gridheight = 2;
+		c.gridwidth = 3;
 		
-		this.setSize(300, 200);
+		this.add(this.betPanel, c);
+		
+		c.fill = GridBagConstraints.VERTICAL;
+		c.weightx = 0.5;
+		c.gridheight = 1;
+		c.gridwidth = 1;
+		c.gridx = 1;
+		c.gridy = 2;
+		this.add(this.button,c);
+		
+		this.pack();
 		this.setVisible(true);
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 	}
@@ -42,7 +64,7 @@ public class PopUpForStartingBets extends JFrame{
 		private static final long serialVersionUID = 1L;
 
 		JButtonForStartingBets(PopUpForStartingBets popUp){
-			super("<html>Enter<br>Your<br>Bet<br></html>");
+			super("Enter Your Bet");
 			this.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -57,10 +79,10 @@ public class PopUpForStartingBets extends JFrame{
 						popUp.dispose();
 					}
 					catch(NumberFormatException m) {
-						betPanel.setErrorText("<html><h2 style=\"color:red;\">Not a valid number!</p></html>");
+						betPanel.setErrorText("<html><p><font size = \"5\" color=\"red\">Not a valid number!</font></p></html>");
 					} 
 					catch(NegativeNumberException e1) {
-						betPanel.setErrorText("<html><h3 style=\"color:red;\">Cannot be a negative number!</p></html>");
+						betPanel.setErrorText("<html><p><font size = \"5\" color=\"red\">Cannot be a negative number!</font></p></html>");
 					}
 				}
 			});

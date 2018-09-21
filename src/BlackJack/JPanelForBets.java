@@ -1,5 +1,6 @@
 package BlackJack;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
@@ -20,13 +21,26 @@ public class JPanelForBets extends JPanel{
 		this.errorLabel = new JLabel();
 		
 		this.setLayout(new GridLayout(3, 1));
-		this.add(this.moneyLabel);
+		
+		JPanel moneyLabelPanel = new JPanel();
+		moneyLabelPanel.add(this.moneyLabel);
+		
+		this.add(moneyLabelPanel);
+		
 		this.add(this.moneyField);
-		this.add(this.errorLabel);
+		
+		JPanel errorPanel = new JPanel();
+		errorPanel.add(errorLabel);
+		this.add(errorPanel);
+		
 	}
 	
 	public String getMoneyFieldString() {
 		return this.moneyField.getText();
+	}
+	
+	public Dimension getPreferredSize() {
+		return new Dimension(500, 100);
 	}
 	
 	public void setErrorText(String s) {

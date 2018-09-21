@@ -5,6 +5,9 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+/*
+ * TODO: update the game text to include player info
+ */
 public class JPanelForGameText extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private BlackjackGame game;
