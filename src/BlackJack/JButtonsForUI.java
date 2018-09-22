@@ -107,7 +107,10 @@ class PlayerDoubleDownButton extends JButton{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				g.getPlayer().addCard(g.getDeck().draw());
-				g.getPlayer().stand();
+				if(!g.getPlayer().getHasStood()) {
+					g.getPlayer().stand();
+				}
+				g.getPlayerInfo().doubleDown();
 				g.updatePlayer();
 			}
 		});

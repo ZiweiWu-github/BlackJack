@@ -22,6 +22,18 @@ public class PlayerInfo implements Serializable{
 		this.currentInsuranceBet = amount;
 	}
 	
+	public int getCurrentBet() {
+		return this.currentBet;
+	}
+	
+	public int getInsuranceBet() {
+		return this.currentInsuranceBet;
+	}
+	
+	public void doubleDown() {
+		this.currentBet *= 2;
+	}
+	
 	public String getInfoString() {
 		String s = "Current Amount of Money: $" + this.currentAmountOfMoney;
 		s += "\nCurrent Bet per hand: $" + this.currentBet;
@@ -37,6 +49,7 @@ public class PlayerInfo implements Serializable{
 			this.currentAmountOfMoney -= this.currentBet;
 		}
 	}
+	
 	
 	/**
 	 * Insurance pays 2:1

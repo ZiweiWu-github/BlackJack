@@ -108,7 +108,7 @@ public class BlackjackGame {
 		}
 		else if(this.dealer.hasBlackjack()) {
 			this.state = GameState.DEALERBLACKJACKWIN;
-			this.playerInfo.Surrender(this.player.getHandStates());
+			this.scoreCount();
 		}
 		else{
 			this.state = GameState.PLAYING;
@@ -135,7 +135,7 @@ public class BlackjackGame {
 	
 	/*
 	 * If blackjack, then check whether or not the player did the insurance bet
-	 * If the player did, then they win the insurance bet
+	 * If the player did, then they win the insurance bet but lose the starting bet
 	 * If not blackjack, then the game resumes as normal
 	 */
 	public void insuranceCheck() {
@@ -146,6 +146,7 @@ public class BlackjackGame {
 				this.playerInfo.insuranceBetResult(true);
 			}
 			this.state = GameState.DEALERBLACKJACKWIN;
+			this.scoreCount();
 		}
 		else {
 			if(this.player.getDidInsuranceBet()) {
@@ -187,7 +188,7 @@ public class BlackjackGame {
 		for(int i =0; i<playerScores.length; i++) {
 			int currentHandScore = playerScores[i];
 			if(currentHandScore < 22) { //if the hand has not bust
-				if(dealerScore > 21) {
+				if(dealerScore > 21 && currentHandScore != 21) {
 					this.player.setWinStatusForHand(i, HandStatus.WIN);
 				}
 				else if(currentHandScore == dealerScore) {
@@ -203,7 +204,10 @@ public class BlackjackGame {
 		}
 		this.playerInfo.startBetResult(this.player.getHandStates());
 		
-		this.state = GameState.END;
+		if(this.state != GameState.DEALERBLACKJACKWIN) {
+			this.state = GameState.END;
+		}
+		
 		this.notifyListeners();
 	}
 	

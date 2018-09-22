@@ -14,6 +14,7 @@ public class Player {
 	private int currentHandNumber = 0;
 	private boolean didInsuranceBet = false;
 	private boolean wonInsuranceBet = false;
+	private boolean hasStood = false;
 	
 	public Player() {
 		hands.add(new Hand());
@@ -34,10 +35,20 @@ public class Player {
 	 * @param c
 	 */
 	public void addCard(Card c) {
+		if(this.hasStood) {
+			this.hasStood = false;
+		}
 		if(this.currentHandNumber < this.hands.size()) {
 			this.hands.get(currentHandNumber).addCard(c);
-			if(!this.canHit()) this.stand();
+			if(!this.canHit()) {
+				this.stand();
+				this.hasStood = true;
+			}
 		}
+	}
+	
+	public boolean getHasStood() {
+		return this.hasStood;
 	}
 	
 	/*
@@ -104,15 +115,12 @@ public class Player {
 	
 	//The player can double down only if it is the first turn
 	public boolean canDoubleDown() {
-		if(this.hasAdditionalHands() && this.hands.size() == 1)
-			return this.getCurrentHand().getCards().size() == 2;
-		else
-			return false;
+		return this.canHit();
 	}
 	
 	//Can only split on the first turn, allows for multiple splits too
 	public boolean canSplit() {
-		if(this.canDoubleDown() && 
+		if(this.getCurrentHand().getCards().size() == 2 && 
 				this.getCurrentHand().getCards().get(0).getValue() == this.getCurrentHand().getCards().get(1).getValue()) {
 			return true;
 		}
