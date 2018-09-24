@@ -125,7 +125,7 @@ class PlayerSplitButton extends JButton{
 		this.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				g.getPlayer().split();
+				g.getPlayer().split(g.getDeck());
 				g.updatePlayer();
 			}
 		});

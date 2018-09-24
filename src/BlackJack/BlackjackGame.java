@@ -108,6 +108,7 @@ public class BlackjackGame {
 		}
 		else if(this.dealer.hasBlackjack()) {
 			this.state = GameState.DEALERBLACKJACKWIN;
+			this.player.stand();
 			this.scoreCount();
 		}
 		else{
@@ -140,6 +141,7 @@ public class BlackjackGame {
 	 */
 	public void insuranceCheck() {
 		if(this.dealer.hasBlackjack()) {
+			this.player.stand();
 			this.playerInfo.Surrender(this.player.getHandStates());
 			if(this.player.getDidInsuranceBet()) {
 				this.player.setInsuranceWon(true);
@@ -184,6 +186,7 @@ public class BlackjackGame {
 	public void scoreCount() {
 		int[] playerScores = this.player.getBestScores();
 		int dealerScore = this.dealer.getBestScore();
+		boolean[] Is10Ace = this.player.getIs10Ace();
 		
 		for(int i =0; i<playerScores.length; i++) {
 			int currentHandScore = playerScores[i];
@@ -195,7 +198,18 @@ public class BlackjackGame {
 					this.player.setWinStatusForHand(i, HandStatus.TIE);
 				}
 				else if(currentHandScore == 21) {
-					this.player.setWinStatusForHand(i, HandStatus.BLACKJACK);
+					//A 10-Ace hand after splitting does not count as blackjack
+					if(i==0) {
+						this.player.setWinStatusForHand(i, HandStatus.BLACKJACK);
+					}
+					else {
+						if(Is10Ace[i]) {
+							this.player.setWinStatusForHand(i, HandStatus.WIN);
+						}
+						else {
+							this.player.setWinStatusForHand(i, HandStatus.BLACKJACK);
+						}
+					}
 				}
 				else if(currentHandScore > dealerScore) {
 					this.player.setWinStatusForHand(i, HandStatus.WIN);

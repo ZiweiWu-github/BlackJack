@@ -28,6 +28,28 @@ public class Hand {
 		this.winStatus = win;
 	}
 	
+	/*
+	 * Checks if it is a 10-Ace combo
+	 * Used to make sure 10-Ace hand after splitting is not counted as blackjack
+	 */
+	public boolean is10Ace() {
+		boolean is10Ace = false;
+		if(this.hand.size() == 2) {
+			if(this.hand.get(0).getValue() == Card.TEN.getValue() && this.hand.get(1).getValue() == Card.ACE.getValue() ) {
+				return true;
+			}
+			else if(this.hand.get(0).getValue() == Card.ACE.getValue() && this.hand.get(1).getValue() == Card.TEN.getValue() ) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else
+			return is10Ace;
+	}
+	
+	
 	/**
 	 * Adds a card to the hand and sets handChangedAfterCounting to true
 	 * @param c

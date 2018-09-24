@@ -3,6 +3,7 @@ package BlackJack;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class JPanelForGameText extends JPanel{
@@ -16,8 +17,10 @@ public class JPanelForGameText extends JPanel{
 		gameTextArea.setLineWrap(true);
 		gameTextArea.setWrapStyleWord(true);
 		gameTextArea.setEditable(false);
+		JScrollPane scroll = new JScrollPane(gameTextArea);
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		this.setLayout(new GridLayout(1, 1));
-		this.add(gameTextArea);
+		this.add(scroll);
 	}
 	
 	/*
@@ -116,8 +119,6 @@ public class JPanelForGameText extends JPanel{
 				break;
 			default:
 				break;
-
-			
 			}
 		}
 		this.gameTextArea.setText(t);
@@ -150,7 +151,7 @@ public class JPanelForGameText extends JPanel{
 		String t = i.getInfoString()+ "\n\n";
 		t += d.getInitialDealerString();
 		t += "\n\n" + p.getPlayerHandString();
-		t += "\n\n" + this.getInsuranceLostString();
+		t += "\n" + this.getInsuranceLostString();
 		return t.trim();
 	}
 	
@@ -166,7 +167,7 @@ public class JPanelForGameText extends JPanel{
 		String t = i.getInfoString()+ "\n\n";
 		t += d.getDealerHandString();
 		t += "\n\n" + p.getPlayerHandString();
-		t += "\n\n" + this.getInsuranceLostString();
+		t += "\n" + this.getInsuranceLostString();
 		return t.trim();
 	}
 	
@@ -176,7 +177,7 @@ public class JPanelForGameText extends JPanel{
 		PlayerInfo i = this.game.getPlayerInfo();
 		if(p.getDidInsuranceBet()) {
 			if(!p.getDidInsuranceWon()) {
-				t += "Insurance Bet Lost: $" + i.getInsuranceBet();
+				t += "Insurance Bet Amount Lost: $" + i.getInsuranceBet();
 			}
 		}
 		return t;

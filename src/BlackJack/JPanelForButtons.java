@@ -37,10 +37,10 @@ public class JPanelForButtons extends JPanel {
 			this.add(this.buttonGet.declineInsuranceButton);
 		}
 		else if(gameState == GameState.PLAYING) {
-			this.add(buttonGet.playerHitButton);
+			if(p.canHit())
+				this.add(buttonGet.playerHitButton);
 			this.add(this.buttonGet.playerStandButton);
-			if (p.canDoubleDown())
-				this.add(this.buttonGet.playerDoubleDownButton);
+			this.add(this.buttonGet.playerDoubleDownButton);
 			if (p.canSplit())
 				this.add(this.buttonGet.playerSplitButton);
 			this.add(this.buttonGet.surrenderButton);

@@ -15,6 +15,7 @@ public class Player {
 	private boolean didInsuranceBet = false;
 	private boolean wonInsuranceBet = false;
 	private boolean hasStood = false;
+	private boolean hasSplit = false;
 	
 	public Player() {
 		hands.add(new Hand());
@@ -47,12 +48,17 @@ public class Player {
 		}
 	}
 	
+	/*
+	 * Double down stands, but the addCard method also stands if the hand is bust
+	 * So, this boolean is needed to make sure the double down button doesn't stand
+	 * if the addCard method has already stood the hand.
+	 */
 	public boolean getHasStood() {
 		return this.hasStood;
 	}
 	
 	/*
-	 * The three methods below are to check the insurance bet for the player
+	 * The four methods below are to check the insurance bet for the player
 	 */
 	
 	public void setInsuranceWon(boolean b) {
@@ -99,23 +105,25 @@ public class Player {
 	//This method returns the current hand without the long get 
 	private Hand getCurrentHand() {return this.hands.get(currentHandNumber);}
 	
-	public int getCurrentHandNumber() {return this.currentHandNumber +1;}
-	
 	/*
 	 * The below methods are used to check the player's options for available moves
 	 */
 	
 	//The player can hit as many times as they want to until they bust
+	//If the player can hit, then they can also double down
 	public boolean canHit() {
-		if(hasAdditionalHands())
+		if(this.hasSplit) {
+			if(this.getCurrentHand().getCards().get(0) == Card.ACE) {
+				return false;
+			}
+			else {
+				return this.getCurrentHand().countValue().first() < 22;
+			}
+		}
+		else if(hasAdditionalHands())
 			return this.getCurrentHand().countValue().first() < 22;
 		else
 			return false;
-	}
-	
-	//The player can double down only if it is the first turn
-	public boolean canDoubleDown() {
-		return this.canHit();
 	}
 	
 	//Can only split on the first turn, allows for multiple splits too
@@ -145,13 +153,16 @@ public class Player {
 	}
 	
 	/**
-	 * Splits the player's hand in two
+	 * Splits the player's hand in two and draws a card for each
 	 */
-	public void split() {
+	public void split(Deck d) {
 		Hand h = new Hand();
 		h.addCard(this.getCurrentHand().getCards().get(0));
-		this.getCurrentHand().removeCard(0);;
+		this.getCurrentHand().removeCard(0);
+		this.getCurrentHand().addCard(d.draw());
+		h.addCard(d.draw());
 		this.hands.add(h);
+		this.hasSplit = true;
 	}
 	
 	/**
@@ -183,6 +194,18 @@ public class Player {
 			states[i] = tempHand.getWinStatus();
 		}
 		return states;
+	}
+	
+	/**
+	 * Returns an boolean array stating whether or not the hand is a 10-Ace hand
+	 * @return
+	 */
+	public boolean[] getIs10Ace() {
+		boolean[] is10Ace = new boolean[this.hands.size()];
+		for(int i = 0; i < this.hands.size(); i++) {
+			is10Ace[i] = this.hands.get(i).is10Ace();
+		}
+		return is10Ace;
 	}
 	
 }
