@@ -2,24 +2,30 @@ package BlackJack;
 
 import java.awt.GridLayout;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class JPanelForButtons extends JPanel {
-	private static final long serialVersionUID = 1L;
+public class JPanelForButtons{
+	private JPanel panel;
 
 	private BlackjackGame g;
 	private ButtonCreatorForJPanel buttonGet;
 
 	public JPanelForButtons(BlackjackGame g) {
+		panel = new JPanel();
 		this.g = g;
 
 		// set gridlayout
-		this.setLayout(new GridLayout(0, 1));
+		panel.setLayout(new GridLayout(0, 1));
 		
 		//make button creator
 		this.buttonGet = new ButtonCreatorForJPanel(g);
 	}
 
+	public JPanel getPanel() {
+		return this.panel;
+	}
+	
 	/**
 	 * Removes all buttons and puts them in according to the player's available
 	 * options and the game's current state
@@ -27,70 +33,63 @@ public class JPanelForButtons extends JPanel {
 	public void refreshButtons() {
 		Player p = g.getPlayer();
 		GameState gameState = g.getGameState();
-		this.removeAll();
+		panel.removeAll();
 
 		if(gameState == GameState.STARTING) {
-			this.add(this.buttonGet.gameStartButton);
+			panel.add(this.buttonGet.gameStartButton);
 		}
 		else if(gameState == GameState.INSURANCE) {
-			this.add(this.buttonGet.acceptInsuranceButton);
-			this.add(this.buttonGet.declineInsuranceButton);
+			panel.add(this.buttonGet.acceptInsuranceButton);
+			panel.add(this.buttonGet.declineInsuranceButton);
 		}
 		else if(gameState == GameState.PLAYING) {
 			if(p.canHit())
-				this.add(buttonGet.playerHitButton);
-			this.add(this.buttonGet.playerStandButton);
-			this.add(this.buttonGet.playerDoubleDownButton);
+				panel.add(buttonGet.playerHitButton);
+			panel.add(this.buttonGet.playerStandButton);
+			panel.add(this.buttonGet.playerDoubleDownButton);
 			if (p.canSplit())
-				this.add(this.buttonGet.playerSplitButton);
-			this.add(this.buttonGet.surrenderButton);
+				panel.add(this.buttonGet.playerSplitButton);
+			panel.add(this.buttonGet.surrenderButton);
 		}
 		else if(gameState == GameState.DEALERTURN) {
-			this.add(this.buttonGet.dealerMoveButton);
+			panel.add(this.buttonGet.dealerMoveButton);
 		}
 		else if(gameState == GameState.SCORECOUNT) {
-			this.add(this.buttonGet.checkScoreButton);
+			panel.add(this.buttonGet.checkScoreButton);
 		}
 		else if(gameState == GameState.MAKINGINSURANCEBET ||
 				gameState == GameState.MAKINGSTARTINGBET) {
 			//do nothing
 		}
 		else { //the gameState is END or DEALERBLACKJACKWIN or PLAYERSURRENDER
-			this.add(this.buttonGet.restartButton);
+			panel.add(this.buttonGet.restartButton);
 		}
 		
-		this.revalidate();
-		this.repaint();
+		panel.revalidate();
+		panel.repaint();
 	}
 	
 	/*
 	 * Private class for the horrible mess that is creating the buttons
 	 */
 	private class ButtonCreatorForJPanel{
-		GameStartButton gameStartButton;
-		AcceptInsuranceButton acceptInsuranceButton;
-		DeclineInsuranceButton declineInsuranceButton;
-		PlayerHitButton playerHitButton;
-		PlayerStandButton playerStandButton;
-		PlayerDoubleDownButton playerDoubleDownButton;
-		PlayerSplitButton playerSplitButton;
-		DealerMoveButton dealerMoveButton;
-		CheckScoreButton checkScoreButton;
-		SurrenderButton surrenderButton;
-		RestartButton restartButton;
+		JButton gameStartButton, acceptInsuranceButton, 
+		declineInsuranceButton,playerHitButton, playerStandButton, playerDoubleDownButton ,
+		playerSplitButton, dealerMoveButton, checkScoreButton, surrenderButton, 
+		restartButton;
 		
 		public ButtonCreatorForJPanel(BlackjackGame g) {
-			gameStartButton = new GameStartButton(g);
-			acceptInsuranceButton = new AcceptInsuranceButton(g);
-			declineInsuranceButton = new DeclineInsuranceButton(g);
-			playerHitButton = new PlayerHitButton(g);
-			playerStandButton = new PlayerStandButton(g);
-			playerDoubleDownButton = new PlayerDoubleDownButton(g);
-			playerSplitButton = new PlayerSplitButton(g);
-			dealerMoveButton = new DealerMoveButton(g);
-			checkScoreButton = new CheckScoreButton(g);
-			surrenderButton = new SurrenderButton(g);
-			restartButton = new RestartButton(g);
+			gameStartButton = ButtonFactory.getGameStartButton(g);
+			acceptInsuranceButton = ButtonFactory.getAccpetInsuranceButton(g);
+			declineInsuranceButton = ButtonFactory.getDeclineInsuranceButton(g);
+			playerHitButton = ButtonFactory.getHitButton(g);
+			playerStandButton = ButtonFactory.getStandButton(g);
+			playerDoubleDownButton = ButtonFactory.getDoubleDownButton(g);
+			playerSplitButton = ButtonFactory.getSplitButton(g);
+			dealerMoveButton = ButtonFactory.getDealerMoveButton(g);
+			checkScoreButton = ButtonFactory.getCheckScoreButton(g);
+			surrenderButton = ButtonFactory.getSurrenderButton(g);
+			restartButton = ButtonFactory.getRestartButton(g);
 		}
 	}
 }

@@ -14,19 +14,18 @@ import javax.swing.JFrame;
  *
  */
 
-public class PopUpForStartingBets extends JFrame{
-	private static final long serialVersionUID = 1L;
+public class PopUpForStartingBets{
 	private JPanelForBets betPanel;
 	private BlackjackGame game;
 	private JButtonForStartingBets button;
 	
  	public PopUpForStartingBets(BlackjackGame game) {
-		super("Place Your Bet!!!");
+ 		JFrame frame = new JFrame("Place Your Bet!!!");
 		this.game = game;
 		this.betPanel = new JPanelForBets();
-		this.button = new JButtonForStartingBets(this);
+		this.button = new JButtonForStartingBets(frame);
 		
-		this.setLayout(new GridBagLayout());
+		frame.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
 		c.fill = GridBagConstraints.BOTH;
@@ -37,7 +36,7 @@ public class PopUpForStartingBets extends JFrame{
 		c.gridheight = 2;
 		c.gridwidth = 3;
 		
-		this.add(this.betPanel, c);
+		frame.add(this.betPanel, c);
 		
 		c.fill = GridBagConstraints.VERTICAL;
 		c.weightx = 0.5;
@@ -45,11 +44,11 @@ public class PopUpForStartingBets extends JFrame{
 		c.gridwidth = 1;
 		c.gridx = 1;
 		c.gridy = 2;
-		this.add(this.button,c);
+		frame.add(this.button,c);
 		
-		this.pack();
-		this.setVisible(true);
-		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		frame.pack();
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
 	
 	
@@ -60,7 +59,7 @@ public class PopUpForStartingBets extends JFrame{
 	private class JButtonForStartingBets extends JButton{
 		private static final long serialVersionUID = 1L;
 
-		JButtonForStartingBets(PopUpForStartingBets popUp){
+		JButtonForStartingBets(JFrame popUp){
 			super("Enter Your Bet");
 			this.addActionListener(new ActionListener() {
 				@Override

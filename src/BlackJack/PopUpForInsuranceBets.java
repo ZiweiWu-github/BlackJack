@@ -13,18 +13,18 @@ import javax.swing.JFrame;
  * @author Ziwei Wu
  *
  */
-public class PopUpForInsuranceBets extends JFrame {
-	private static final long serialVersionUID = 1L;
+public class PopUpForInsuranceBets{
 	private JPanelForBets betPanel;
 	private BlackjackGame game;
 	private ButtonForInsuranceBets betButton;
 
 	public PopUpForInsuranceBets(BlackjackGame g) {
+		JFrame frame = new JFrame("Place Your Bet!!!");
 		this.betPanel = new JPanelForBets();
 		this.game = g;
-		this.betButton = new ButtonForInsuranceBets(this);
+		this.betButton = new ButtonForInsuranceBets(frame);
 		
-		this.setLayout(new GridBagLayout());
+		frame.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
 		c.fill = GridBagConstraints.BOTH;
@@ -35,7 +35,7 @@ public class PopUpForInsuranceBets extends JFrame {
 		c.gridheight = 2;
 		c.gridwidth = 3;
 		
-		this.add(this.betPanel, c);
+		frame.add(this.betPanel, c);
 		
 		c.fill = GridBagConstraints.VERTICAL;
 		c.weightx = 0.5;
@@ -43,18 +43,18 @@ public class PopUpForInsuranceBets extends JFrame {
 		c.gridwidth = 1;
 		c.gridx = 1;
 		c.gridy = 2;
-		this.add(this.betButton, c);
+		frame.add(this.betButton, c);
 		
-		this.pack();
-		this.setVisible(true);
-		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		frame.pack();
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
 	
 	
 	private class ButtonForInsuranceBets extends JButton{
 		private static final long serialVersionUID = 1L;
 
-		ButtonForInsuranceBets(PopUpForInsuranceBets popUp){
+		ButtonForInsuranceBets(JFrame popUp){
 			super("Enter Your Bet");
 			this.addActionListener(new ActionListener() {
 				@Override

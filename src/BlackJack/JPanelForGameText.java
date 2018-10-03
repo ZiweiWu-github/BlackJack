@@ -6,12 +6,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-public class JPanelForGameText extends JPanel{
+public class JPanelForGameText{
 	private static final long serialVersionUID = 1L;
 	private BlackjackGame game;
 	private JTextArea gameTextArea;
+	private JPanel panel;
 	
 	public JPanelForGameText(BlackjackGame g) {
+		this.panel = new JPanel();
 		this.game = g;
 		this.gameTextArea = new JTextArea();
 		gameTextArea.setLineWrap(true);
@@ -19,8 +21,12 @@ public class JPanelForGameText extends JPanel{
 		gameTextArea.setEditable(false);
 		JScrollPane scroll = new JScrollPane(gameTextArea);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		this.setLayout(new GridLayout(1, 1));
-		this.add(scroll);
+		panel.setLayout(new GridLayout(1, 1));
+		panel.add(scroll);
+	}
+	
+	public JPanel getPanel() {
+		return this.panel;
 	}
 	
 	/*
@@ -135,11 +141,6 @@ public class JPanelForGameText extends JPanel{
 		this.gameTextArea.setText(t);
 	}
 	
-	/*
-	 * This should display the following things:
-	 * Dealer's hand and points
-	 * Player's hand and points
-	 */
 	private void setPlayingText() {
 		this.gameTextArea.setText(this.getPlayingString());
 	}

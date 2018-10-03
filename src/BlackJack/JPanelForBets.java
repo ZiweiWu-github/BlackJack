@@ -39,6 +39,7 @@ public class JPanelForBets extends JPanel{
 		return this.moneyField.getText();
 	}
 	
+	@Override
 	public Dimension getPreferredSize() {
 		return new Dimension(500, 100);
 	}
